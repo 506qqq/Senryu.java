@@ -7,22 +7,41 @@ public class BuildSkill {
 	public static enum Mode{
 		OnUpper, OnLower, OnDisable
 	};
-    public static Mode skillMode;
+    private static Mode skillMode;
 
-    public static Mode getMode() {
+    public static Mode getCurrentMode() {
     	return skillMode;
     }
 
-    public static String getServerMsgOnDisable() {
+    private static String getServerMsgOnDisable() {
     	return CONFIG.MSG.ONDISABLESKILL;
     }
 
-    public static String getServerMsgOnUpper() {
+    private static String getServerMsgOnUpper() {
     	return CONFIG.MSG.ONUPPERSKILL;
     }
 
-    public static String getServerMsgOnLower() {
+    private static String getServerMsgOnLower() {
     	return CONFIG.MSG.ONLOWERSKILL;
     }
+
+    public static void resetMode() {
+    	skillMode = Mode.OnDisable;
+    }
+
+    public static void setSkillByChat(String receivedMsg) {
+		if(receivedMsg.equals(BuildSkill.getServerMsgOnDisable())) {
+			BuildSkill.skillMode = Mode.OnDisable;
+			return;
+		}
+		if(receivedMsg.equals(BuildSkill.getServerMsgOnUpper())) {
+			BuildSkill.skillMode = Mode.OnUpper;
+			return;
+		}
+		if(receivedMsg.equals(BuildSkill.getServerMsgOnLower())) {
+			BuildSkill.skillMode = Mode.OnLower;
+			return;
+		}
+	}
 }
 
