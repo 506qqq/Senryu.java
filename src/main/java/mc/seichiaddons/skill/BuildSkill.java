@@ -13,32 +13,20 @@ public class BuildSkill {
     	return skillMode;
     }
 
-    private static String getServerMsgOnDisable() {
-    	return CONFIG.MSG.ONDISABLESKILL;
-    }
-
-    private static String getServerMsgOnUpper() {
-    	return CONFIG.MSG.ONUPPERSKILL;
-    }
-
-    private static String getServerMsgOnLower() {
-    	return CONFIG.MSG.ONLOWERSKILL;
-    }
-
     public static void resetMode() {
     	skillMode = Mode.OnDisable;
     }
 
     public static void setSkillByChat(String receivedMsg) {
-		if(receivedMsg.equals(BuildSkill.getServerMsgOnDisable())) {
+		if(receivedMsg.equals(CONFIG.MSG.ONDISABLESKILL)) {
 			BuildSkill.skillMode = Mode.OnDisable;
 			return;
 		}
-		if(receivedMsg.equals(BuildSkill.getServerMsgOnUpper())) {
+		if(receivedMsg.equals(CONFIG.MSG.ONUPPERSKILL)) {
 			BuildSkill.skillMode = Mode.OnUpper;
 			return;
 		}
-		if(receivedMsg.equals(BuildSkill.getServerMsgOnLower())) {
+		if(receivedMsg.equals(CONFIG.MSG.ONLOWERSKILL)) {
 			BuildSkill.skillMode = Mode.OnLower;
 			return;
 		}

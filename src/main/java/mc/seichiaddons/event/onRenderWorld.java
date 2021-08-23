@@ -3,7 +3,6 @@ package mc.seichiaddons.event;
 import org.lwjgl.opengl.GL11;
 
 import mc.seichiaddons.skill.BuildSkill;
-import mc.seichiaddons.skill.render.AssaultSkillRenderStateContainer;
 import mc.seichiaddons.skill.render.BuildSkillRenderer;
 import mc.seichiaddons.util.FacingUtil;
 import mc.seichiaddons.util.PlayerUtil;
@@ -42,8 +41,8 @@ public class onRenderWorld {
         
         if(BuildSkillRenderer.isRenderEnable)
         	renderBuildSkill(bb);
-        if(AssaultSkillRenderStateContainer.isRenderEnable())
-        	renderAssaultSkill(bb);
+        //if(AssaultSkillRenderStateContainer.isRenderEnable())
+        //	renderAssaultSkill(bb);
         
     	Tessellator.getInstance().draw();
     	RenderUtil.glend();
@@ -72,7 +71,7 @@ public class onRenderWorld {
     		RenderUtil.selectCuboid(new Vec3d(x, y, z), new Vec3d(x+1, y+1, z+1), bb, 255, 255, 255);
     	}
     }
-
+    /*
     private static void renderAssaultSkill(BufferBuilder bb) {
     	Vec3d min = AssaultSkillRenderStateContainer.getMinPos();
     	Vec3d max = AssaultSkillRenderStateContainer.getMaxPos();
@@ -82,5 +81,5 @@ public class onRenderWorld {
     
     private static void renderStagnaSkill(BufferBuilder bb) {
     }
-    
+    */
 }
