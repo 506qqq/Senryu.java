@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import mc.seichiaddons.skill.BuildSkill;
 import mc.seichiaddons.skill.render.BuildSkillRenderer;
 import mc.seichiaddons.util.FacingUtil;
-import mc.seichiaddons.util.PlayerUtil;
 import mc.seichiaddons.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -30,13 +29,10 @@ public class onRenderWorld {
     private static void renderWorld() {
     	BuildSkillRenderer.updateRenderState();
     	BufferBuilder bb = Tessellator.getInstance().getBuffer();
-    	BlockPos bp = PlayerUtil.getPlayerBlockPos();
-    	double pX = Minecraft.getMinecraft().getRenderManager().viewerPosX;
-        double pY = Minecraft.getMinecraft().getRenderManager().viewerPosY;
-        double pZ = Minecraft.getMinecraft().getRenderManager().viewerPosZ;
+
 
         RenderUtil.glbegin();
-        GlStateManager.translate(bp.getX() - pX, bp.getY() - pY, bp.getZ() - pZ);
+        
         bb.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
         
         if(BuildSkillRenderer.isRenderEnable)
@@ -50,14 +46,17 @@ public class onRenderWorld {
     }
 
     private static void renderBuildSkill(BufferBuilder bb) {
+    	BlockPos bp = BuildSkillRenderer.drawBasisPos;
+    	double pX = Minecraft.getMinecraft().getRenderManager().viewerPosX;
+        double pY = Minecraft.getMinecraft().getRenderManager().viewerPosY;
+        double pZ = Minecraft.getMinecraft().getRenderManager().viewerPosZ;
+    	GlStateManager.translate(bp.getX() - pX, bp.getY() - pY, bp.getZ() - pZ);
+    	
 		int loop = BuildSkillRenderer.drawBlockCount;
 		EnumFacing la = FacingUtil.getPlayerFacingAt();
     	int x = 0, y = 0, z = 0;
     	if(FacingUtil.isHorizontal(la)) {
     		if(BuildSkill.getCurrentMode() == BuildSkill.Mode.OnLower) y--;
-    	}
-    	if(la == EnumFacing.DOWN) {
-    		y--;
     	}
     	for(int i = 0; i < loop; i++) {
     		switch(la) {
@@ -68,7 +67,33 @@ public class onRenderWorld {
     			case UP		:y++;	break;
     			case DOWN	:y--;	break;
     		}
-    		RenderUtil.selectCuboid(new Vec3d(x, y, z), new Vec3d(x+1, y+1, z+1), bb, 255, 255, 255);
+    		if(!BuildSkillRenderer.isTargetSlab) {
+    			RenderUtil.selectCuboid(new Vec3d(x, y, z), new Vec3d(x+1, y+1, z+1), bb, 255, 255, 255);
+    			continue;
+    		}
+    		Vec3d min, max;
+    		switch(BuildSkill.halfBlockMode) {
+    		case Upper:
+    			min = new Vec3d(x, y+0.5, z);
+    			max = new Vec3d(x+1, y+1, z+1);
+    			RenderUtil.selectCuboid(min, max,  bb,  255,  255, 255);
+    			break;
+    		case Lower:
+    			min = new Vec3d(x, y, z);
+    			max = new Vec3d(x+1, y+0.5, z+1);
+    			RenderUtil.selectCuboid(min, max, bb, 255, 255, 255);
+    			break;
+    		//ダサッ！
+    		case Both:
+    			min = new Vec3d(x, y+0.5, z);
+    			max = new Vec3d(x+1, y+1, z+1);
+    			RenderUtil.selectCuboid(min, max, bb, 255, 255, 255);
+    			min = new Vec3d(x, y, z);
+    			max = new Vec3d(x+1, y+0.5, z+1);
+    			RenderUtil.selectCuboid(min, max, bb, 255, 255, 255);
+    			break;
+    		}
+    		
     	}
     }
     /*

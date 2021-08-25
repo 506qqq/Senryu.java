@@ -18,7 +18,7 @@ public class onTicked {
         	   return;
            }
            if(Objects.isNull(Minecraft.getMinecraft().player)) {
-           	return;
-       }
+        	   return;
+           }
     }
 }

@@ -23,7 +23,16 @@ public class CONFIG {
 	public static MSGTEXT MSG = new MSGTEXT();
 	public static LINKTXT LINKS = new LINKTXT();
 	
-	public static boolean drawBuildSkillByRender = true;
+	@Comment({"↓書き換える際は、かならず数字が昇順になるようにしてください。"})
+	public static int[] buildSkillTargetBlockId = {1, 2, 3, 4, 5, 12, 13, 14, 15, 16, 17, 20, 21, 22, 24, 35,
+			41, 42, 44, 45, 47, 48, 49, 56, 57, 73, 79, 80, 82, 85, 87, 88, 89, 95, 98, 102, 110, 112, 113, 121, 126, 129, 133,
+			139, 153, 155, 159, 160, 162, 165, 168, 169, 172, 173, 174, 179, 182, 188, 189, 190, 191, 192, 201, 202, 205, 206,
+			214, 215, 216, 251, 252};
+	
+	@Comment({"↓書き換える際は、かならず数字が昇順になるようにしてください。↓に追記した場合は、上にも同様に記載してください。"})
+	public static int[] buildSkillTargetSlabId = {44, 126, 182, 205};
+	@Comment({"↓書き換える際は、かならず数字が昇順になるようにしてください。"})
+	public static int[] buildSkillDestructionTargetBlockId = {8, 9, 10, 11, 31, 32, 37, 38, 39, 40, 50, 78, 106, 175};
 	
 	public static String[] stagnaSkillName = {"エクスプロージョン", "ミラージュ・フレア", "ドッ・カーン", 
 			"ギガンティック・ボム", "ブリリアント・デトネーション", "レムリア・インパクト", "エターナル・ヴァイス"};
@@ -36,10 +45,18 @@ public class CONFIG {
 	public static boolean[] assaultIsClotSkill = {false, true, true, true, true};
 	
 	public static class MSGTEXT {
-		@Comment({"スキル有効時のメッセージ"})
+		@Comment({"建築スキルのメッセージ"})
 		public String ONDISABLESKILL = "直列設置: OFF";
 		public String ONUPPERSKILL = "直列設置: 上側";
 		public String ONLOWERSKILL = "直列設置: 下側";
+		public String ONHALFBOTH = "ハーフブロック設定 ：両方";
+		public String ONHALFUPPER = "ハーフブロック設定 ：上側";
+		public String ONHALFLOWER = "ハーフブロック設定 ：下側";
+		public String ONBREAKERENABLE = "破壊設定 ：ON";
+		public String ONBREAKERDISABLE = "破壊設定 ：OFF";
+		public String ONMINESTACKENABLE = "マインスタック優先設定 ：ON";
+		public String ONMINESTACKDISABLE = "マインスタック優先設定 ：OFF";
+		
 	}
 	public static class LINKTXT {
 		public String NAME = "link";

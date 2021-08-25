@@ -13,7 +13,7 @@ public class SeichiSkill{
 	private static List<AssaultSkillNode> assaultList;
 
 	public static StagnaSkillNode currentStagna;
-	private static AssaultSkillNode currentAssault;
+	public static AssaultSkillNode currentAssault;
 
 	private final static String MsgOnDisableAssaultSkill = "アサルトスキルがOFFになりました";
 
